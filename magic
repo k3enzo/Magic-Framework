@@ -1,0 +1,120 @@
+<?php
+
+include_once "library/conf.php";
+
+require_once('vendor/autoload.php');
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$console = new Application("magic","1.0 -Dev");
+
+
+$console
+    ->register('create:controller')
+    ->setDefinition(array(
+        new InputArgument('person', InputArgument::OPTIONAL, 'Who shall we greet?', 'world'),
+    ))
+    ->setDescription('Create Controller with create:controller name   ')
+    ->setHelp('
+The <info>create:controller</info> command will offer greetings.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php console.php create:control article</info>
+  so
+    <info>Created php class and file with example data in /controller</info>
+')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $person = $input->getArgument('person');
+
+        $ControllerData ="
+<?php 
+       class ".$person._Control." extends controller
+       {
+          public function index()
+          {
+              echo 'Router Dir -> controller/$person';
+          }
+       }
+?>
+        ";
+
+        $file = fopen("controller/".$person._Control.".php","w");
+        $s = fwrite($file,$ControllerData);
+        fclose($file);
+        if($s > 1)
+        {
+            $output->writeln('created <info>'.$person.' Controller</info>');
+        }
+        else
+        {
+            $output->writeln('Error To Create <info>'.$person.' Controller</info>');
+        }
+    });
+
+
+$console
+    ->register('create:model')
+    ->setDefinition(array(
+        new InputArgument('person', InputArgument::OPTIONAL, 'Who shall we greet?', 'world'),
+    ))
+    ->setDescription('Create Model with create:model name')
+    ->setHelp('
+The <info>create:model</info> command will offer greetings.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php console.php create:model article</info>
+  so
+    <info>Created php class and file with example data in /app/model </info>
+')
+    ->setCode(function (InputInterface $input, OutputInterface $output) {
+        $person = $input->getArgument('person');
+        $modelData ='
+<?php 
+      class '.$person._Model.' extends model
+      {
+         protected $table = "'.$person.'";
+         protected $pk = "id";
+      }
+?>
+        ';
+
+        $file = fopen("app/model/".$person._Model.".php","w");
+        $s = fwrite($file,$modelData);
+        fclose($file);
+        if($s > 1)
+        {
+            $output->writeln('created <info>'.$person.' Model</info>');
+        }
+        else
+        {
+            $output->writeln('Error To Create <info>'.$person.' Model</info>');
+        }
+
+
+//        exec("cd. >controller/".$person."_controller.php");
+    });
+
+$console->run();
+
+
+
+
+
+
+
+
+
+
+//class MagicCommander
+//{
+//    public function CrController($person)
+//    {
+//
+//        return $s;
+//    }
+//}
