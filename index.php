@@ -5,7 +5,7 @@
 
     Router::get("/","index@index");
 
-	Router::route("/users","users@view");
+    Router::route("/users","users@view");
 
     Router::route("/article/1","article@index");
 
