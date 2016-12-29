@@ -31,7 +31,7 @@ To manage routers -> Root folder  index.php
 ----------------------------------------------
 All Incoming Urls With Get   
 	// For Example : mysite.php/site
- 	*  Router::get("/site","Class@function");
+ 	 Router::get("/site","Class@function");
 	
 	// Post :
 	  Router::post("/Test","Class@function");
@@ -43,8 +43,7 @@ All Incoming Urls With Get
 	  Router::route("/article/$","class@function"); 
 
 // Warning : When you are in the configuration file into the file / files by default the value is set to 1 DefaultRouter
-
-	defined("DefaultRouter")
+	 defined("DefaultRouter")
             || define("DefaultRouter",1);
 
 	After you default URL is divided into 3 parts : 
@@ -53,7 +52,7 @@ All Incoming Urls With Get
 ----------------------------------------------
 All Load Methods
 	// for Example : Load View file / View File name   ViewName.magic.php
-	  * Load::viewer("ViewName"); 
+	  Load::viewer("ViewName"); 
 	
 	// Load Module : 
 	  $obj = Load::model("ModuleName");
