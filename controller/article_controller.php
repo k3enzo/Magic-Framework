@@ -8,6 +8,7 @@
 		public function view($id)
 		{
 			$article = Load::model("article");
+            
             $row = $article->get_rows("*","id = $id");
 
                 $this->view->set('data',$row);
