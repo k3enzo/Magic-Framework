@@ -3,6 +3,7 @@
 	include_once("library/conf.php");
 
 
+
     Router::get("/","index@index");
 
     Router::route("/users","users@view");
@@ -12,3 +13,9 @@
     Router::post("/khodemoni","index@index");
 
     Router::Run();
+
+
+
+
+
+

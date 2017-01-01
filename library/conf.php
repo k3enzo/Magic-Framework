@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 error_reporting(0);
 
@@ -53,12 +53,13 @@ error_reporting(0);
 	/*-------   View Directory (All your User Interface * html-css  )   -------*/
    defined("View_PATH")
 		||
-		define("View_PATH",ROOT_PATH.DS.'view');
-		
-		
-		
-		
-	/*-------   Suffix Methods   -------*/	
+		define("View_PATH",ROOT_PATH.DS.'views');
+
+    /*------------ require blade ------------ */
+
+
+
+/*-------   Suffix Methods   -------*/
 	
 			/*---- This active all get names and url Convert to low string.  prefix of (controller , module , view ) names   
 							| for example : Name_controller.php -> name_controller.php | <?php class Name...* -> name...* |  ---*/
@@ -88,8 +89,10 @@ error_reporting(0);
 
         defined("DefaultRouter")
             || define("DefaultRouter",1);
-		
-		
+
+
+
+
 		
   
    
@@ -103,9 +106,6 @@ error_reporting(0);
    )));
 
 
-		
+
 
   include_once("library".DS."autoload.php");
-	
-
-?>
