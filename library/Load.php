@@ -26,9 +26,10 @@ Class Load
             exit(Not_Control);
     }
 
-    static public function viewer($file)
+    static public function viewer($file,$set =['var'=>'','data' => []])
     {
         $view = new View();
+        $view->set($set['var'],$set['data']);
         $view->render($file);
     }
 }

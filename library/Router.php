@@ -72,15 +72,11 @@ class Router {
 
 
 
-
-
-
-    static public function get($url = '',$param = '')
+    static public function get($url = '',$params = '')
     {
-
         if(empty($url) && empty($params) && DefaultRouter == 1)
         {
-            self::defaultRout("get");
+            self::defaultRout();
             self::CheckRoute();
         }
         else
@@ -95,12 +91,12 @@ class Router {
                 unset($parm[$count-1]);
                 $geturl = implode("/",$parm);
 
+
                 $url = self::ChangeUrl($url);
 
             }
             if("/".$geturl == $url)
             {
-
                 $get = self::Exp("@",$params);
 
                 self::$controller = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
@@ -111,6 +107,7 @@ class Router {
                 self::CheckRoute();
             }
         }
+
     }
 
 
@@ -193,11 +190,11 @@ class Router {
             unset($parm[$count-1]);
         return implode("/",$parm);
     }
-    static public function Run()
+    static public function Run($redirect = "404")
     {
         if(self::$IsRoute != 1)
         {
-            Load::viewer("404");
+            Load::viewer($redirect);
         }
     }
 

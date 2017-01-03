@@ -55,6 +55,17 @@ error_reporting(0);
 		||
 		define("View_PATH",ROOT_PATH.DS.'views');
 
+   defined("Engine_Path")
+        ||
+        define('Engine_Path',Library_PATH.DS.'engine');
+
+    defined("Engine_Magic_Path")
+        ||
+        define('Engine_Magic_Path',Engine_Path.DS.'magic');
+
+    defined("Engine_Base_Path")
+        ||
+        define('Engine_Base_Path',Engine_Path.DS.'base');
     /*------------ require blade ------------ */
 
 
@@ -98,11 +109,14 @@ error_reporting(0);
    
   set_include_path(implode(PATH_SEPARATOR, array(
 		realpath(ROOT_PATH),
-		realpath(App_PATH),
         realpath(Library_PATH),
+        realpath(Engine_Base_Path),
+        realpath(Engine_Path),
+        realpath(Engine_Magic_Path),
+		realpath(App_PATH),
 		realpath(Model_PATH),
 		realpath(Controllers_PATH),
-		get_include_path()
+		get_include_path(),
    )));
 
 
