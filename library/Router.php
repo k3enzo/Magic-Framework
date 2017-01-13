@@ -32,7 +32,7 @@ class Router {
 
 
 
-    static function post($url = '',$param = '')
+    static function post($url = '',$params = '')
     {
 
         if(empty($url) && empty($params) && DefaultRouter == 1)
@@ -58,15 +58,23 @@ class Router {
             }
             if("/".$geturl == $url)
             {
-                $get = self::Exp("@",$params);
+                if(is_callable($params))
+                {
+                    self::$IsRoute = 1;
+                    call_user_func_array($params,[]);
+                }
+                else {
+                    $get = self::Exp("@", $params);
 
-                self::$controller = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
-                array_shift($get);
-                self::$action = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
+                    self::$controller = Helper::Definelow(($get[0] == '') ? 'index' : $get[0]);
+                    array_shift($get);
+                    self::$action = Helper::Definelow(($get[0] == '') ? 'index' : $get[0]);
 
 
-                self::CheckRoute();
+                    self::CheckRoute();
+                }
             }
+
         }
     }
 
@@ -84,27 +92,33 @@ class Router {
             $geturl = $_GET['url'];
 
             if(strpos($url,"/$")) {
-
                 $parm = self::Exp("/",$geturl);
                 $count = count($parm);
                 self::$param = [$parm[$count-1]];
                 unset($parm[$count-1]);
                 $geturl = implode("/",$parm);
 
-
                 $url = self::ChangeUrl($url);
-
             }
             if("/".$geturl == $url)
             {
-                $get = self::Exp("@",$params);
+                if(is_callable($params))
+                {
 
-                self::$controller = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
-                array_shift($get);
-                self::$action = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
+                    self::$IsRoute = 1;
+                    call_user_func_array($params,[]);
+                }
+                else {
+
+                    $get = self::Exp("@", $params);
+
+                    self::$controller = Helper::Definelow(($get[0] == '') ? 'index' : $get[0]);
+                    array_shift($get);
+                    self::$action = Helper::Definelow(($get[0] == '') ? 'index' : $get[0]);
 
 
-                self::CheckRoute();
+                    self::CheckRoute();
+                }
             }
         }
 
@@ -137,6 +151,13 @@ class Router {
             }
             if("/".$geturl == $url)
             {
+                if(is_callable($params))
+                {
+
+                    self::$IsRoute = 1;
+                    call_user_func_array($params,[]);
+                }
+                else{
                 $get = self::Exp("@",$params);
 
                 self::$controller = Helper::Definelow(($get[0] == '' ) ? 'index' : $get[0]);
@@ -145,6 +166,7 @@ class Router {
 
 
                 self::CheckRoute();
+                }
             }
         }
 

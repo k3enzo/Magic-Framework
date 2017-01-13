@@ -3,7 +3,9 @@
 	include_once("library/conf.php");
 
 
-    Router::get("/","article@index");
+    Router::get("/",function (){
+        return Load::viewer('users');
+    });
 
         Router::route("/users","users@view");
         Router::route("/article/1","article@index");
