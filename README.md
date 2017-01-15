@@ -15,10 +15,14 @@ PHP Architecture -> MVC
 
 ## Installation
 
-Download Project *.zip -> extract -> use composer cli in Root Extracted : 
+Download Project *.zip -> extract 
+ 
+ Next Extract Folder in Root use composer cli in Root Extracted : 
 
 -----------------------------------------------------
+
 $ composer install 
+
 -----------------------------------------------------
 
 got to Library\conf.php    Customize it
