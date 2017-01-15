@@ -32,10 +32,10 @@ To manage routers -> Root folder  index.php
 All Incoming Urls With Get   
 	// For Example : mysite.php/site
 	
- 	  **Router::get("/site","Class@function");**
+ 	  Router::get("/site","Class@function");**
 =======
 	
-	For Example : mysite.php/site
+	//For Example : mysite.php/site
  	 Router::get("/site","Class@function");
 	
 	// Post :
