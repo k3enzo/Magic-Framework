@@ -15,7 +15,11 @@ PHP Architecture -> MVC
 
 ## Installation
 
-Download Project *.zip -> extract -> use composer cli in Root Extracted : composer install 
+Download Project *.zip -> extract -> use composer cli in Root Extracted : 
+
+-----------------------------------------------------
+$ composer install 
+-----------------------------------------------------
 
 got to Library\conf.php    Customize it
 
@@ -78,7 +82,8 @@ can in controller classes get Posted Values from Html and post Routes With
       //Requested With Post here ;
         // name() is name of html form   name="name" 
         
-        Request::Post()->name();
+         $post = Request::Post();
+                        $post->name();
     
 
 -------------------------------
