@@ -31,25 +31,22 @@ To manage routers -> Root folder  index.php
 ----------------------------------------------
 All Incoming Urls With Get   
 	// For Example : mysite.php/site
-	
-<<<<<<< HEAD
- 	  **Router::get("/site","Class@function");**
-=======
+
+    
  	  Router::get("/site","Class@function");**
 =======
 	
 	//For Example : mysite.php/site
  	 Router::get("/site","Class@function");
->>>>>>> 06382907c2efddbd93e90873a7ea884a59d394b8
-	
+ 	 
 	// Post :
-	  **Router::post("/Test","Class@function");**
+	  Router::post("/Test","Class@function");
 	
 	// Request (get & Post) : 
-	  **Router::route("/article","Class@function");**
+	  Router::route("/article","Class@function");
 
 	// for Get value from url must Write /$ (post,get,route) : 
-	  **Router::route("/article/$","class@function");**
+	  Router::route("/article/$","class@function");
 
 // Warning : When you are in the configuration file into the file / files by default the value is set to 1 DefaultRouter
 
@@ -58,19 +55,33 @@ All Incoming Urls With Get
 
 	After you default URL is divided into 3 parts : 
 
-	**mysite.com/Class/function/value**
+	mysite.com/Class/function/value
 ----------------------------------------------
 All Load Methods
 	// for Example : Load View file / View File name   ViewName.magic.php
 	  **Load::viewer("ViewName");**
 	
 	// Load Module : 
-	  **$obj = Load::model("ModuleName");**
+	  $obj = Load::model("ModuleName");
 	
 	// Load Other Controllers in a Controller or each part of project
-	  **$obj = Load::controller('ControllerName');**
+	  $obj = Load::controller('ControllerName');
 ----------------------------------------------
 
+## Post Requests
+
+can in controller classes get Posted Values from Html and post Routes With 
+    Request Class
+    Example :
+-------------------------------
+    //What is Requested ? 
+      //Requested With Post here ;
+        // name() is name of html form   name="name" 
+        
+        Request::Post()->name();
+    
+
+-------------------------------
 Read the description **soon**
 
 
