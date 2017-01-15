@@ -32,7 +32,15 @@ To manage routers -> Root folder  index.php
 All Incoming Urls With Get   
 	// For Example : mysite.php/site
 	
+<<<<<<< HEAD
  	  **Router::get("/site","Class@function");**
+=======
+ 	  Router::get("/site","Class@function");**
+=======
+	
+	//For Example : mysite.php/site
+ 	 Router::get("/site","Class@function");
+>>>>>>> 06382907c2efddbd93e90873a7ea884a59d394b8
 	
 	// Post :
 	  **Router::post("/Test","Class@function");**
