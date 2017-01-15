@@ -8,9 +8,8 @@ class index_controller extends controller
 
 		echo "Class Name --> ".get_class($this)."<br>";
 
-		$name = Request::Post();
+		echo Request::Post()->name();
 
-		echo $name['name'];
 
 	}
 }

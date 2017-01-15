@@ -7,24 +7,37 @@
  */
 class Request
 {
-    static private $Post = [];
+    static public $Post = [];
     static public $Name = [];
+    static public $s;
+
+
+    public function __construct()
+    {
+        foreach ($_POST as $row => $key)
+        {
+            $this->$row = create_function( '', 'return '.$key.';');
+//            self::$Post[$row] = $key;
+//            self::$Name[] = $row;
+        }
+
+    }
+    public function __call($method, $args)
+    {
+        if(property_exists($this, $method)) {
+            if(is_callable($this->$method)) {
+                return call_user_func_array($this->$method, $args);
+            }
+        }
+    }
+
 
     static private function Geter($post)
     {
-        foreach ($post as $row => $key)
-        {
-            self::$Post[$row] = $key;
-            self::$Name[] = $row;
-        }
+
     }
     static public function Post()
     {
-        if(isset($_POST))
-        {
-           self::Geter($_POST);
-
-           return self::$Post;
-        }
+        return new Request();
     }
 }
