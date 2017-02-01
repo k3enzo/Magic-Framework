@@ -5,7 +5,7 @@
  * Date: 1/11/2017
  * Time: 7:30 PM
  */
-class Request
+class Request extends Validate
 {
     static public $Post = [];
     static public $Name = [];
@@ -25,7 +25,7 @@ class Request
                             if(!$obj::$valid)
                                {
                                     return $obj::$message;
-                                }
+                               }
                         }
                             return '.$key.';'
                 );

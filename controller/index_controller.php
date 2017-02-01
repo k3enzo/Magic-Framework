@@ -8,8 +8,16 @@ class index_controller extends controller
             $post = Request::Post();
 
             echo "Class Name --> ".get_class($this)."<br>";
+                 $post->name('Required|Email');
+                    $post->family('Required');
 
-            var_dump($post->name("Required|Email|Max:2"));
+                if(!$post::$valid)
+                {
+                    echo json_encode(["message" => $post::$message]);
+                }
+
+
+
 
 
 	}

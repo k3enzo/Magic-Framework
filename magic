@@ -74,14 +74,14 @@ The <info>create:model</info> command will offer greetings.
     ->setCode(function (InputInterface $input, OutputInterface $output) {
         $person = $input->getArgument('person');
         $modelData ='
-<?php 
-      class '.$person._Model.' extends model
-      {
-         protected $table = "'.$person.'";
-         protected $pk = "id";
-      }
-?>
-        ';
+		<?php 
+			  class '.$person._Model.' extends model
+			  {
+				 protected $table = "'.$person.'";
+				 protected $pk = "id";
+			  }
+		?>
+				';
 
         $file = fopen("app/model/".$person._Model.".php","w");
         $s = fwrite($file,$modelData);
@@ -100,13 +100,6 @@ The <info>create:model</info> command will offer greetings.
     });
 
 $console->run();
-
-
-
-
-
-
-
 
 
 

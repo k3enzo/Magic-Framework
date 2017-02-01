@@ -10,7 +10,7 @@ class Validate
     {
         $opt = str_replace(" ","",$opt);
         $exp = explode("|",$opt);
-        self::$message[] = [ $name => $value];
+
             foreach ($exp as $row)
             {
                 $rowFunc = explode(":",$row);
