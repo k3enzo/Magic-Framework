@@ -18,10 +18,10 @@ class Router {
             if(method_exists($controllerObj, self::$action)){
                 call_user_func_array(
                     [$controllerObj,self::$action],
-                    self::$param or []
+                    !empty(self::$param)? self::$param : []
                 );
                 self::$IsRoute = 1;
-            }else{
+            } else {
                 die("Action ".self::$action." not found in $controller Class");
             }
 
@@ -42,7 +42,7 @@ class Router {
         }
         else
         {
-            $geturl = @$_POST['url'];
+            $geturl = $_POST['url'];
 
             if(strpos($url,"/$")) {
 
@@ -52,11 +52,10 @@ class Router {
                 unset($parm[$count-1]);
                 $geturl = implode("/",$parm);
 
-
                 $url = self::ChangeUrl($url);
-
             }
-            if("/".$geturl == $url)
+
+            if($geturl == $url)
             {
                 if(is_callable($params))
                 {
@@ -70,11 +69,9 @@ class Router {
                     array_shift($get);
                     self::$action = Helper::Definelow(($get[0] == '') ? 'index' : $get[0]);
 
-
                     self::CheckRoute();
                 }
             }
-
         }
     }
 
@@ -89,7 +86,7 @@ class Router {
         }
         else
         {
-            $geturl = $_GET['url'];
+            $geturl = $_SERVER['REQUEST_URI'];
 
             if(strpos($url,"/$")) {
                 $parm = self::Exp("/",$geturl);
@@ -100,7 +97,7 @@ class Router {
 
                 $url = self::ChangeUrl($url);
             }
-            if("/".$geturl == $url)
+            if($geturl == $url)
             {
                 if(is_callable($params))
                 {
@@ -135,7 +132,7 @@ class Router {
         }
         else
         {
-            $geturl = $_REQUEST['url'];
+            $geturl = $_SERVER['REQUEST_URI'];
 
             if(strpos($url,"/$")) {
 
@@ -149,7 +146,7 @@ class Router {
                 $url = self::ChangeUrl($url);
 
             }
-            if("/".$geturl == $url)
+            if($geturl == $url)
             {
                 if(is_callable($params))
                 {
@@ -184,18 +181,16 @@ class Router {
         switch ($method)
         {
             case "get":
-                $urlparts = self::Exp("/",$_GET['url']);
+                $urlparts = self::Exp("/",$_SERVER['REQUEST_URI']);
                 break;
             case "post":
-                $urlparts = self::Exp("/",$_POST['url']);
+                $urlparts = self::Exp("/",$_SERVER['REQUEST_URI']);
                 break;
 
             default:
-                $urlparts = self::Exp("/",$_REQUEST['url']);
+                $urlparts = self::Exp("/",$_SERVER['REQUEST_URI']);
                 break;
         }
-
-
 
         self::$controller = Helper::Definelow(($urlparts[0] == '' ) ? 'index' : $urlparts[0]);
         array_shift($urlparts);

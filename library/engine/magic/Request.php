@@ -16,18 +16,18 @@ class Request extends Validate
     {
         foreach ($_POST as $row => $key)
         {
-            $this->$row = create_function( '$validate = NULL',
-                '
-                  if(!empty($validate))
+            $this->$row = create_function('$validate = NULL',
+                ' if(!empty($validate))
                     {
                       $obj = new Validate();
-                        $obj::Option($validate,'.$key.','.$row.');
+                        $obj::Option($validate,"'.$key.'","'.$row.'");
                             if(!$obj::$valid)
                                {
                                     return $obj::$message;
                                }
-                        }
-                            return '.$key.';'
+                               return "'.$key.'";
+                    }
+                   return "'.$key.'" ;'
                 );
         }
 
