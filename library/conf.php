@@ -2,6 +2,14 @@
 
 error_reporting(0);
 
+    /* ----- http Run default root url ------ */
+    defined('host')
+        || define('host','localhost');
+
+    defined("httpPort")
+        || define("httpPort",8008);
+
+
     /*------ Database Connection ------ */
 
     defined("Dbhost")

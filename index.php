@@ -4,8 +4,8 @@
 
 
     Router::get("/",function (){
-        return Load::viewer('users');
-    });
+    return Load::viewer('users');
+});
 
         Router::route("/users","users@view");
         Router::route("/article/1","article@index");

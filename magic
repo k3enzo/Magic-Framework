@@ -96,18 +96,38 @@ The <info>create:model</info> command will offer greetings.
         }
 
 
-//        exec("cd. >controller/".$person."_controller.php");
     });
+
+
+
+
+
+
+
+$console
+    ->register('run')
+    ->setDefinition(array(
+        new InputArgument('person', InputArgument::OPTIONAL, 'Who shall we greet?', 'world'),
+    ))
+    ->setDescription('run http server with default localhost:8008')
+    ->setHelp('
+The <info>run</info> command will offer greetings.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php console.php run root path to localhost:8008</info>
+  so
+    <info>run root path to http url localhost:8008</info>
+')
+    ->setCode(function (InputInterface $input,OutputInterface $output) {
+
+            $output->writeln('Magic Running in <info>'.host.':'.intval(httpPort).'</info>');
+
+        exec('php -S '.host.':'.intval(httpPort));
+
+    });
+
+
 
 $console->run();
 
-
-
-//class MagicCommander
-//{
-//    public function CrController($person)
-//    {
-//
-//        return $s;
-//    }
-//}

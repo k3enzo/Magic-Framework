@@ -18,7 +18,7 @@ class Router {
             if(method_exists($controllerObj, self::$action)){
                 call_user_func_array(
                     [$controllerObj,self::$action],
-                    self::$param ?? []
+                    self::$param or []
                 );
                 self::$IsRoute = 1;
             }else{
@@ -219,6 +219,4 @@ class Router {
             Load::viewer($redirect);
         }
     }
-
-
 }
