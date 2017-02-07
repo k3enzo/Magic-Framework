@@ -191,13 +191,11 @@ class Router {
                 $urlparts = self::Exp("/",$_SERVER['REQUEST_URI']);
                 break;
         }
-
         self::$controller = Helper::Definelow(($urlparts[0] == '' ) ? 'index' : $urlparts[0]);
         array_shift($urlparts);
         self::$action = Helper::Definelow(($urlparts[0] == '' ) ? 'index' : $urlparts[0]);
         array_shift($urlparts);
         self::$param = ($urlparts == '')? '' : $urlparts ;
-
     }
 
     static public function ChangeUrl($url)
@@ -207,6 +205,7 @@ class Router {
             unset($parm[$count-1]);
         return implode("/",$parm);
     }
+
     static public function Run($redirect = "404")
     {
         if(self::$IsRoute != 1)

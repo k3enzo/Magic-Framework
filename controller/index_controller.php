@@ -8,13 +8,16 @@ class index_controller extends controller
 
             $post = Request::Post();
 
-                    echo $post->name('Email');
-                     echo $post->family('Required');
+        $name =  $post->name('Email');
+        $family = $post->family('Required');
+
+                echo $name." | ".$family;
 
                 if(!$post::$valid)
                 {
                     echo json_encode(["message" => $post::$message]);
                 }
+        
 
 
         }

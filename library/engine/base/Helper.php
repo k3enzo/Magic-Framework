@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 abstract class Helper
 {
 	static public function Do_array($array)
