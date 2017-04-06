@@ -97,7 +97,18 @@ class model extends Dbase{
     }
 
     function update($data) {
-        $this->_query = " update {$this->table} set $data where ".$this->where;
+       $upd = null;
+        if(is_array($data))
+        {
+            foreach($data as $row => $n)
+            {
+                $upd .=  !empty($upd)? ','."`$row` = '{$n}' " : "`$row` = '{$n}'" ;
+            }
+        }
+        else
+            $upd = $data;
+
+        $this->_query = " update {$this->table} set {$upd} where ".$this->where;
         $this->execute($this->_query);
         return $this->_affected_rows;
     }

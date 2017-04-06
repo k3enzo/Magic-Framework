@@ -9,7 +9,12 @@
 		{
 			$article = Load::model("article");
 
-			$s = $article->where('id',$id)->delete();
+			$s = $article->where('id',$id)->update(['name'=>'mohi','type'=>'kitchen']);
+
+			if($s)
+				echo 'yesss';
+			else
+				echo 'nooo';
 
 //			Load::viewer('article',['var'=>'data','data'=>$row]);
 
