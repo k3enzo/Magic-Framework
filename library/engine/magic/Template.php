@@ -35,7 +35,7 @@ class Template{
 
     function cout()
     {
-       $this->contect =  str_replace('{',${'<?= '},$this->contect);
+       $this->contect =  str_replace('{',${'<? echo '},$this->contect);
        $this->contect =  str_replace('}',${' ?>'},$this->contect);
     }
 /*  function cif()
@@ -50,7 +50,8 @@ class Template{
         {
             foreach ($key as $ss => $s)
             {
-                $this->contect = str_replace("$".$row."['$ss']",$s,$this->contect);
+                foreach ($s as $r => $n)
+                    $this->contect = str_replace("$".$row."['$r']",$n,$this->contect);
             }
         }
     }

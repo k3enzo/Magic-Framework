@@ -172,6 +172,12 @@ class Dbase {
     }
 
 
+    public function GetColumnNames($sql)
+    {
+        $statement = $this->query($sql, []);
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
 
 
 

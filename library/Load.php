@@ -29,7 +29,8 @@ Class Load
     static public function viewer($file,$set =['var'=>'','data' => []])
     {
         $view = new View();
-        $view->set($set['var'],$set['data']);
+        $data = !is_array($set['data'])? [$set['data']] : $set['data'];
+        $view->set($set['var'],$data);
         $view->render($file);
     }
 }

@@ -1,15 +1,15 @@
 <?php 
-class users_controller extends controller {
-	
-		public function view()
-		{
+class users_controller extends controller
+{
 
-            Load::viewer("users",['var' => "hello",'data' => ['message' => "mss"] ]);
-		}
-		public function shows($s)
-        {
-            echo $s;
-        }
+    public function view()
+    {
+
+        Load::viewer("users", ['var' => "hello", 'data' => ['message' => "mss"]]);
+    }
+
+    public function shows($s)
+    {
+        echo $s;
+    }
 }
-
-?>

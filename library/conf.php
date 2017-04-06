@@ -19,7 +19,7 @@ error_reporting(0);
         || define("Db", "mysql");
 
     defined("Dbname")
-        || define("Dbname", "mvc");
+        || define("Dbname", "magic");
 
     defined("Dbport")
         || define("Dbport", "3306");
@@ -28,7 +28,7 @@ error_reporting(0);
         || define("Dbuser", "root");
 
     defined("Dbpass")
-        || define("Dbpass", "");
+        || define("Dbpass", "root");
 
     /*----- Database Connection End ------*/
 

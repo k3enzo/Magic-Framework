@@ -17,9 +17,6 @@ class index_controller extends controller
                 {
                     echo json_encode(["message" => $post::$message]);
                 }
-        
-
-
         }
 }
 

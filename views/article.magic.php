@@ -5,6 +5,9 @@
  * Date: 12/08/2016
  * Time: 11:26 PM
  */
+
+print_r($data);
+
 ?>
 
 
@@ -15,11 +18,17 @@
 <body>
     <div align="center">
         <p>
-          Name :   
+
+            <?php foreach($data as $row){
+
+            echo $row['name'];
+
+            }?>
+          Name : { $data['name'] }
 		  <img src='..\public\img\1.jpg'>
         </p>
         <p>
-          Family : 
+          type : { $data['type'] }
         </p>
     </div>
 </body>

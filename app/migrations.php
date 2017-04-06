@@ -1,16 +1,17 @@
-<?php 
+<?php
 
-class article_migrate{
-	
-	function Fields()
-	{
-		$mig = new migration();
+class article_migrate
+{
 
-		$mig->int('id')->autoinc;
-		$mig->varchar('name');
-		$mig->varchar('name_en');	
-	}
-	
+    function Fields()
+    {
+        $mig = new migration();
+
+        $mig->int('id')->autoinc;
+        $mig->varchar('name');
+        $mig->varchar('name_en');
+    }
+
 }
 
 ?>

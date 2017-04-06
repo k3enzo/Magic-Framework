@@ -7,7 +7,7 @@
  */
 class View extends Base{
 
-    private $vars = array();
+    private $vars ;
 
     function set($var , $data) {
         $this->vars[$var] = $data;

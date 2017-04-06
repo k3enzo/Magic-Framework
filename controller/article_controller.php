@@ -8,10 +8,10 @@
 		public function view($id)
 		{
 			$article = Load::model("article");
-				
-            $row = $article->get_rows("*","id = $id");
 
-                $this->view->set('data',$row);
-                $this->view->render('article');
+			$s = $article->where('id',$id)->delete();
+
+//			Load::viewer('article',['var'=>'data','data'=>$row]);
+
 		}
 	}

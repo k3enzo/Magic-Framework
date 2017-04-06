@@ -16,4 +16,11 @@ abstract class Helper
     {
         return str_replace(".",DS,$view);
     }
+	static public function refactor($var)
+	{
+		if(is_array($var))
+			return implode(',',$var);
+		else
+			return explode(',',$var);
+	}
 }
