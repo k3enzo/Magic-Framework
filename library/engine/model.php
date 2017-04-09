@@ -11,6 +11,9 @@ class model extends Dbase{
     protected $limit = 100 ;
     private $where = ' 1=1 ';
     private $characters = ['=','!=','>','<','<=','>=','<=>','like'];
+    private $_JoinSeted = NULL;
+    public $_JoinField = NULL;
+    private $character = ['b','c','d','e','f'];
 
 //    function __construct() {
 //
@@ -21,10 +24,65 @@ class model extends Dbase{
 //        }
 //    }
 
-    private function GetColumnName()
+    public function GetColumnName($get = NULL)
     {
+        if($get == 'default')
+        {
+            return $this->fields;
+        }
+
         $names = $this->GetColumnNames("DESCRIBE ".$this->table);
         return $names;
+    }
+
+    public function Getfield($field = NULL)
+    {
+            if(!empty($field)){
+                  if(is_array($field)) {
+
+                      foreach ($field as $row)
+                      {
+                          $ring .= empty($ring)? $this->table.'.'.$row : ','.$this->table.'.'.$row ;
+                      }
+                  }
+                return $field;
+            }
+
+            if(empty($this->fields) or $this->fields == "*"){
+                $field = $this->GetColumnName();
+
+                foreach ($field as $row)
+                {
+                    $ring .= empty($ring)? $this->table.'.'.$row : ','.$this->table.'.'.$row ;
+                }
+
+                 return $ring;
+            }
+
+
+
+                    $field = !is_array($this->fields)?
+                        Helper::refactor($this->fields)
+                            :
+                             $this->fields;
+
+                    foreach ($field as $row)
+                    {
+                        $ring .= empty($ring)? $this->table.'.'.$row : ','.$this->table.'.'.$row ;
+                    }
+
+            return $ring;
+    }
+
+    private function SetToData($data)
+    {
+        $values = NULL;
+        foreach ($data as $row)
+        {
+            $values .= !empty($values)? ",'{$row}'" : "'{$row}'";
+        }
+
+        return $values;
     }
 
     function where($field,$character,$value = NULL)
@@ -49,32 +107,46 @@ class model extends Dbase{
 
     public function get($limit = NULL,$fields = NULL)
     {
-
-        $fields = empty($fields)? $this->fields : $fields;
         $limit = empty($limit)? $this->limit : $limit;
 
-        $this->_query = "select {$fields} from {$this->table} where {$this->where} ORDER BY {$this->pk} {$this->order} LIMIT $limit";
+        $fields = $this->Getfield($fields);
+
+        if(empty($this->_JoinSeted)) {
+            $this->_query = "select {$fields} from {$this->table} where {$this->where} ORDER BY {$this->pk} {$this->order} LIMIT $limit";
+        }
+        else {
+            $this->_query = "
+                select {$this->Getfield()},".$this->_JoinField." 
+                    from {$this->table} 
+                        ".$this->_JoinSeted."
+                    where {$this->where} 
+                        ORDER BY {$this->table}.{$this->pk} {$this->order} LIMIT $limit
+                ";
+        }
+
 
         return $this->getAll($this->_query);
     }
 
     public function find($id)
     {
-        return $this->where('id',$id)->get();
 
+        return $this->where('id',$id)->get();
     }
 
 
     public function findAll($char)
     {
         $fields = $this->fields;
+        $fields = is_array($fields)? Helper::refactor($fields) : $fields;
 
         if($this->fields == '*')
         {
             $fields = $this->GetColumnName();
             $fields = Helper::refactor($fields);
         }
-        $fields = Helper::refactor($fields);
+        if(!is_array($fields))
+            $fields = Helper::refactor($fields);
 
 
         foreach ($fields as $row)
@@ -85,18 +157,10 @@ class model extends Dbase{
         }
 
         return is_array($data) ? $data[0] : NULL;
-        
-        
-
 
     }
 
-    function delete() {
-        $this->_query = "delete from $this->table where ".$this->where;
-        return $this->execute($this->_query);
-    }
-
-    function update($data) {
+    public function update($data) {
        $upd = null;
         if(is_array($data))
         {
@@ -113,16 +177,67 @@ class model extends Dbase{
         return $this->_affected_rows;
     }
 
-    function insert($data) {
-        $this->_query = " insert into $this->table ({$this->where}) VALUES ($data)";
+    public function insert($data) {
+        $fields = $this->Getfield();
+
+        $data = $this->SetToData($data);
+
+        $this->_query = "insert into $this->table ({$fields}) VALUES ($data)";
+
+
         $this->execute($this->_query);
         return $this->_affected_rows;
+    }
+
+    public function delete() {
+        $this->_query = "delete from $this->table where ".$this->where;
+        return $this->execute($this->_query);
+    }
+
+    protected function Joiner($JoinModelName,$JoinKeyName,$PrimaryKey = NULL)
+    {
+
+
+           if(class_exists($JoinModelName._Model))
+           {
+
+               $model = Load::model($JoinModelName);
+               $tableName = $model->getTable();
+                    $fields = $model->Getfield();
+
+
+                    $fields = Helper::refactor(
+                        array_diff(
+                            Helper::refactor($fields),[$tableName.'.'.$JoinKeyName,$tableName.'.id']
+                        )
+                    );
+//                        if(!is_array($fields))
+////                            $fields = Helper::refactor($fields);
+////               $fields = array_diff($fields,[$JoinKeyName,'id']);
+
+
+               $query = '
+                        JOIN '.$tableName.'
+                        ON '.$this->table.'.'.(empty($PrimaryKey)?$this->pk:$PrimaryKey).' = '.$tableName.'.'.$JoinKeyName.' 
+                        
+               ';
+
+               $this->_JoinSeted .= $query;
+               $this->_JoinField = $fields;
+               return  $this;
+
+           }
     }
 
     function run($query) {
         $this->query = $query;
         $this->execute($this->_query);
         return $this->_affected_rows;
+    }
+
+    function getTable()
+    {
+        return $this->table;
     }
 
     function last_query(){

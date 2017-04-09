@@ -8,15 +8,12 @@
 		public function view($id)
 		{
 			$article = Load::model("article");
-
-			$s = $article->where('id',$id)->update(['name'=>'mohi','type'=>'kitchen']);
-
-			if($s)
-				echo 'yesss';
-			else
-				echo 'nooo';
+			var_dump(
+				$article->getTest()->get()
+			);
 
 //			Load::viewer('article',['var'=>'data','data'=>$row]);
 
 		}
+
 	}

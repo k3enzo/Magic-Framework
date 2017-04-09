@@ -5,5 +5,5 @@
          protected $table = "test";
          protected $pk = "id";
       }
-?>
+
         
