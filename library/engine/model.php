@@ -9,10 +9,10 @@ class model extends Dbase{
     protected $fields = '*';
     protected $order = 'ASC';
     protected $limit = 100 ;
-    private $where = ' 1=1 ';
+    private $where = '1=1';
     private $characters = ['=','!=','>','<','<=','>=','<=>','like'];
     private $_JoinSeted = NULL;
-    public $_JoinField = NULL;
+    protected $_JoinField = NULL;
     private $character = ['b','c','d','e','f'];
 
 //    function __construct() {
@@ -24,7 +24,7 @@ class model extends Dbase{
 //        }
 //    }
 
-    public function GetColumnName($get = NULL)
+    protected function GetColumnName($get = NULL)
     {
         if($get == 'default')
         {
@@ -35,7 +35,7 @@ class model extends Dbase{
         return $names;
     }
 
-    public function Getfield($field = NULL)
+    protected function Getfield($field = NULL)
     {
             if(!empty($field)){
                   if(is_array($field)) {
@@ -89,7 +89,10 @@ class model extends Dbase{
     {
         if(!in_array($character,$this->characters) && empty($value))
         {
-            $this->where = "`$field` = '{$character}'";
+            if($this->where == '1=1')
+                $this->where = "`$field` = '{$character}'";
+            else
+                $this->where .= " and `$field` = '{$character}'";
                 return $this;
         }
 
@@ -100,7 +103,37 @@ class model extends Dbase{
         if(strtolower($character) == 'like')
             $value = '%'.$value.'%';
 
-        $this->where = "`$field` {$character} '{$value}'";
+        if(empty($this->where))
+            $this->where = "`$field` {$character} '{$value}'";
+        else
+            $this->where = " and `$field` {$character} '{$value}'";
+
+        return $this;
+    }
+
+
+    public function OrWhere($field,$character,$value = NULL)
+    {
+        if(!in_array($character,$this->characters) && empty($value))
+        {
+            if($this->where == '1=1')
+                $this->where = "`$field` = '{$character}'";
+            else
+                $this->where .= " or `$field` = '{$character}'";
+            return $this;
+        }
+
+        elseif (!in_array(strtolower($character),$this->characters) && !empty($value))
+            exit(Not_valid_mysql_character.' - '.$character.' -');
+
+
+        if(strtolower($character) == 'like')
+            $value = '%'.$value.'%';
+
+        if(empty($this->where))
+            $this->where = "`$field` {$character} '{$value}'";
+        else
+            $this->where .= " or `$field` {$character} '{$value}'";
 
         return $this;
     }
@@ -124,7 +157,10 @@ class model extends Dbase{
                 ";
         }
 
-
+            if($limit == 1)
+            {
+                return $this->getOne($this->_query);
+            }
         return $this->getAll($this->_query);
     }
 
@@ -235,7 +271,7 @@ class model extends Dbase{
         return $this->_affected_rows;
     }
 
-    function getTable()
+    protected function getTable()
     {
         return $this->table;
     }

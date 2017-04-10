@@ -8,9 +8,14 @@
 		public function view($id)
 		{
 			$article = Load::model("article");
-			var_dump(
-				$article->getTest()->get()
-			);
+
+
+
+			Auth::login('k3en','k3en');
+
+//			var_dump(
+//			$article->where('name',1)->OrWhere('type',455)->get()
+//		);
 
 //			Load::viewer('article',['var'=>'data','data'=>$row]);
 

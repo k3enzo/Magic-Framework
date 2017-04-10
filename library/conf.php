@@ -1,5 +1,8 @@
 <?php
 
+session_start();
+ob_start();
+
 error_reporting(0);
 
     /* ----- http Run default root url ------ */
@@ -71,6 +74,10 @@ error_reporting(0);
         ||
         define('Engine_Magic_Path',Engine_Path.DS.'magic');
 
+    defined("Engine_Statics")
+        ||
+        define('Engine_Statics',Engine_Path.DS.'statics');
+
     defined("Engine_Base_Path")
         ||
         define('Engine_Base_Path',Engine_Path.DS.'base');
@@ -112,8 +119,53 @@ error_reporting(0);
 
 
 
-		
-  
+        /* Auth Config */
+
+        defined("Auth_Conf")
+            ||
+            define("Auth_Conf",
+                [
+                    /* sessions */
+
+                    'UserId' => 'UserId',
+                    'UserN' => 'UserName',
+                    'UserIp' => 'UserIp',
+
+                    /* Redirect When Logined :
+                        We can set Here 2 Element
+                    One ( Write : view:Filename )
+                    two ( Write : route:RouteUrl )
+
+                     */
+
+                    'RedirectToIn' => 'route:khodemoni',
+                    'RedirectToOut' => 'view:home'
+
+
+                ]);
+
+
+
+        /* Secure Mode */
+                /* We have here Two Mode [ Easy & Hard ]
+                    in Hard Mode System Check Hard Database Connections || Data Translated and All Data
+
+         !!!!!!!!!!!!!!! Warning !!!!!!!!!!!!!!
+
+                In the hard mode is likely to come down System Speed
+                  */
+            defined('SecureMode')
+                ||
+                define('SecureMode','Easy');
+
+        /* we can Enable This everyTime see System bad work To fix Someone Program*/
+
+            defined('Debuger')
+                ||
+                define('Debuger',0);
+
+
+
    
   set_include_path(implode(PATH_SEPARATOR, array(
 		realpath(ROOT_PATH),
@@ -123,6 +175,7 @@ error_reporting(0);
         realpath(Engine_Magic_Path),
 		realpath(App_PATH),
 		realpath(Model_PATH),
+        realpath(Engine_Statics),
 		realpath(Controllers_PATH),
 		get_include_path(),
    )));

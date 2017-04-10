@@ -23,4 +23,11 @@ abstract class Helper
 		else
 			return explode(!empty($char)?"{$char}":',',$var);
 	}
+	static public function Jump($url)
+	{
+		if(Debuger == 0)
+			header('Location:/'.$url,true);
+		else
+			echo "<script>window.location.href ='/".$url."'</script>";
+	}
 }

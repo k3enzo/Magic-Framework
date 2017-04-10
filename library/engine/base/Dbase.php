@@ -15,7 +15,7 @@ class Dbase {
     public $_id;
 
 
- public function __construct($dbconn = null) {
+    public function __construct($dbconn = null) {
         $this->setProperties($dbconn);
         $this->connect();
     }
@@ -29,7 +29,7 @@ class Dbase {
 
 
 
-    public function setProperties($array = null) {
+    protected function setProperties($array = null) {
         if (!empty($array) && is_array($array) && count($array) == 4) {
             foreach($array as $key => $value) {
                 $this->$key = $value;
@@ -70,7 +70,7 @@ class Dbase {
 
 
 
-    public function setDriverOptions($options = null) {
+    protected function setDriverOptions($options = null) {
         if (!empty($options)) {
             $this->_driver_options = $options;
         }
@@ -151,7 +151,7 @@ class Dbase {
 
 
 
-    public function getLastInsertId($sequenceName = null) {
+    protected function getLastInsertId($sequenceName = null) {
         return $this->_db_object->lastInsertId($sequenceName);
     }
 
@@ -164,7 +164,7 @@ class Dbase {
 
 
 
-    public function getAll($sql = null, $params = null) {
+    protected function getAll($sql = null, $params = null) {
         if (!empty($sql)) {
             $statement = $this->query($sql, $params);
             return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -172,7 +172,7 @@ class Dbase {
     }
 
 
-    public function GetColumnNames($sql)
+    protected function GetColumnNames($sql)
     {
         $statement = $this->query($sql, []);
         return $statement->fetchAll(PDO::FETCH_COLUMN);
@@ -186,7 +186,7 @@ class Dbase {
 
 
 
-    public function getOne($sql = null, $params = null) {
+    protected function getOne($sql = null, $params = null) {
         if (!empty($sql)) {
             $statement = $this->query($sql, $params);
             return $statement->fetch(PDO::FETCH_ASSOC);
@@ -201,7 +201,7 @@ class Dbase {
 
 
 
-    public function execute($sql = null, $params = null) {
+    protected function execute($sql = null, $params = null) {
         if (!empty($sql)) {
             $statement = $this->query($sql, $params);
             $this->_affected_rows = $statement->rowCount();
@@ -219,7 +219,7 @@ class Dbase {
 
 
 
-    public function insert($sql = null, $params = null) {
+    protected function insert($sql = null, $params = null) {
         if (!empty($sql)) {
             if ($this->execute($sql, $params)) {
                 $this->_id = $this->getLastInsertId();
@@ -235,7 +235,7 @@ class Dbase {
 
 
 
-    public static function makeArray($array = null) {
+    protected static function makeArray($array = null) {
         return is_array($array) ? $array : array($array);
     }
 

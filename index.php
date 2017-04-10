@@ -6,12 +6,13 @@
             return Load::viewer('users');
         });
 
-        Router::get("/users/ss","users@view");
+        Router::get("/users","users@view");
 
         Router::route("/article/$","article@view");
 
-        Router::get("/khodemoni","index@index");
-
+        Router::get("/khodemoni",function (){
+            return Load::viewer('home');
+        });
          Router::Run("404");
 
 

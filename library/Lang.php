@@ -16,3 +16,4 @@ define("Min_Invalid","Value Length is Longer Size");
 define("Not_StartedValue","Value Not Started With");
 define("Not_EndedValue","Value Not Ended With");
 define('Not_valid_mysql_character',"This is Not valid Character in mysql ");
+define('Login_Invalid_UserPw','Username or Password is Invalid');
