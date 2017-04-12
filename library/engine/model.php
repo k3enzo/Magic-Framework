@@ -13,7 +13,6 @@ class model extends Dbase{
     private $characters = ['=','!=','>','<','<=','>=','<=>','like'];
     private $_JoinSeted = NULL;
     protected $_JoinField = NULL;
-    private $character = ['b','c','d','e','f'];
 
 //    function __construct() {
 //

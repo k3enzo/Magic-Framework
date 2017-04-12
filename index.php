@@ -6,6 +6,15 @@
             return Load::viewer('users');
         });
 
+
+            Router::group("/sos",function (){
+
+                        Router::get("/salam","users@view");
+                        Router::get("/bye","users@view");
+
+            });
+
+
         Router::get("/users","users@view");
 
         Router::route("/article/$","article@view");
