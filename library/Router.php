@@ -42,7 +42,7 @@ class Router {
         }
         else
         {
-            $geturl = !empty(self::$url)? self::$url.$_POST['url'] : $_POST['url'];
+            $geturl = $_POST['url'];
 
             if(strpos($url,"/$")) {
 
@@ -54,6 +54,10 @@ class Router {
 
                 $url = self::ChangeUrl($url);
             }
+
+            $Change = !empty(self::$url)? self::$url.$url : $url;
+
+            $url = $Change;
 
             if($geturl == $url)
             {
@@ -103,6 +107,7 @@ class Router {
             $Change = !empty(self::$url)? self::$url.$url : $url;
 
                 $url = $Change;
+
             echo $url."<br>";
             if($geturl == $url)
             {
@@ -153,6 +158,11 @@ class Router {
                 $url = self::ChangeUrl($url);
 
             }
+
+            $Change = !empty(self::$url)? self::$url.$url : $url;
+
+            $url = $Change;
+
             if($geturl == $url)
             {
                 if(is_callable($params))
@@ -224,15 +234,14 @@ class Router {
     static public function group($url,$funct)
     {
 
-               self::$url .= $url;
+        self::$url .= $url;
 
                 if(is_callable($funct))
                 {
                     call_user_func($funct);
                 }
 
-        self::$url  = NULL;
+        self::$url  = str_replace($url,'',self::$url);
 
-        return self::class;
     }
 }

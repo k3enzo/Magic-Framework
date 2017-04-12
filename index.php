@@ -9,6 +9,17 @@
 
             Router::group("/sos",function (){
 
+                Router::group("/help",function (){
+
+                    Router::group('/lol',function (){
+
+                        Router::get("/salam","users@view");
+
+                    });
+
+                        Router::get("/salam","users@view");
+                        Router::get("/babye","users@view");
+                });
                         Router::get("/salam","users@view");
                         Router::get("/bye","users@view");
 
