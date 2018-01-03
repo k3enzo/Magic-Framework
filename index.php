@@ -31,7 +31,7 @@
         Router::route("/article/$","article@view");
 
         Router::get("/khodemoni",function (){
-            return Load::viewer('home');
+            return view('home');
         });
          Router::Run("404");
 
